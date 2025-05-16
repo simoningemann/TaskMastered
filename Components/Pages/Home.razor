@@ -1,0 +1,53 @@
+﻿@page "/"
+
+<PageTitle>TaskMastered</PageTitle>
+
+<div class="bg-dark text-light min-vh-100 p-4">
+    <h2 class="mb-4">Recent Tasks</h2>
+
+    <table class="table table-dark table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in _elements.Take(4))
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Type</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private IEnumerable<WorkItem>? _elements;
+
+    protected override void OnInitialized()
+    {
+        _elements = new List<WorkItem>
+        {
+            new() { Id = "1", Title = "Setup project", Type = "Task", Status = "Done" },
+            new() { Id = "2", Title = "Design UI", Type = "Feature", Status = "In Progress" },
+            new() { Id = "3", Title = "Create database", Type = "Task", Status = "To Do" },
+            new() { Id = "4", Title = "Write API layer", Type = "Bug", Status = "Blocked" },
+            new() { Id = "5", Title = "Add authentication", Type = "Feature", Status = "To Do" }
+        };
+    }
+
+    class WorkItem
+    {
+        public string? Id { get; set; }
+        public string? Title { get; set; }
+        public string? Type { get; set; }
+        public string? Status { get; set; }
+    }
+}
